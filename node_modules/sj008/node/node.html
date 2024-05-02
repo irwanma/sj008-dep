@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Crypto Project</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>My Crypto Project</h1>
+    <p>Proyek ini adalah contoh implementasi sederhana dari kriptografi menggunakan metode Caesar Cipher.</p>
+    <div>
+        <label for="plaintext">Plaintext:</label>
+        <input type="text" id="plaintext">
+    </div>
+    <div>
+        <label for="shift">Shift:</label>
+        <input type="number" id="shift" value="3">
+    </div>
+    <div>
+        <button onclick="encrypt()">Encrypt</button>
+        <button onclick="decrypt()">Decrypt</button>
+    </div>
+    <div>
+        <label for="encryptedText">Encrypted Text:</label>
+        <textarea id="encryptedText" readonly></textarea>
+    </div>
+    <div>
+        <label for="decryptedText">Decrypted Text:</label>
+        <textarea id="decryptedText" readonly></textarea>
+    </div>
+</div>
+
+<script>
+    function encrypt() {
+        var plaintext = document.getElementById("plaintext").value;
+        var shift = parseInt(document.getElementById("shift").value);
+        var encryptedText = '';
+        for (var i = 0; i < plaintext.length; i++) {
+            var charCode = plaintext.charCodeAt(i);
+            if (charCode >= 65 && charCode <= 90) {
+                encryptedText += String.fromCharCode((charCode - 65 + shift) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) {
+                encryptedText += String.fromCharCode((charCode - 97 + shift) % 26 + 97);
+            } else {
+                encryptedText += plaintext.charAt(i);
+            }
+        }
+        document.getElementById("encryptedText").value = encryptedText;
+    }
+
+    function decrypt() {
+        var encryptedText = document.getElementById("encryptedText").value;
+        var shift = parseInt(document.getElementById("shift").value);
+        var decryptedText = '';
+        for (var i = 0; i < encryptedText.length; i++) {
+            var charCode = encryptedText.charCodeAt(i);
+            if (charCode >= 65 && charCode <= 90) {
+                decryptedText += String.fromCharCode((charCode - 65 - shift + 26) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) {
+                decryptedText += String.fromCharCode((charCode - 97 - shift + 26) % 26 + 97);
+            } else {
+                decryptedText += encryptedText.charAt(i);
+            }
+        }
+        document.getElementById("decryptedText").value = decryptedText;
+    }
+</script>
+
+</body>
+</html>
